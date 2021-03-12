@@ -48,6 +48,10 @@ API.v1.addRoute('teams.create', { authRequired: true }, {
 
 API.v1.addRoute('teams.delete', { authRequired: true }, {
 	post() {
+		if (!hasPermission(this.userId, 'delete-team')) {
+			return API.v1.unauthorized();
+		}
+
 		const { teamId, teamName } = this.bodyParams;
 
 		if (!teamId && !teamName) {
