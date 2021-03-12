@@ -107,4 +107,12 @@ export class TeamService extends ServiceClass implements ITeamService {
 	async listAll(): Promise<Array<ITeam>> {
 		return this.TeamModel.find().toArray();
 	}
+
+	deleteById(teamId: string): void {
+		this.TeamModel.removeById(teamId);
+	}
+
+	deleteByName(teamName: string): void {
+		this.TeamModel.remove({ name: teamName });
+	}
 }

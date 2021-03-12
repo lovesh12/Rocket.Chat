@@ -137,6 +137,10 @@ export class BaseRaw<T> implements IBaseRaw<T> {
 		return this.col.insertOne(doc as unknown as OptionalId<T>, options);
 	}
 
+	remove(query: FilterQuery<T>): Promise<DeleteWriteOpResultObject> {
+		return this.col.deleteOne(query);
+	}
+
 	removeById(_id: string): Promise<DeleteWriteOpResultObject> {
 		const query: object = { _id };
 		return this.col.deleteOne(query);

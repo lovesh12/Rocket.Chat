@@ -45,3 +45,19 @@ API.v1.addRoute('teams.create', { authRequired: true }, {
 		return API.v1.success({ team });
 	},
 });
+
+API.v1.addRoute('teams.delete', { authRequired: true }, {
+	post() {
+		const { teamId, teamName } = this.bodyParams;
+
+		if (!teamId && !teamName) {
+			return API.v1.failure('Provide either a teamId or teamName in request body');
+		}
+
+		teamId
+			? Promise.await(Team.deleteById(teamId))
+			: Promise.await(Team.deleteByName(teamName));
+
+		return API.v1.success();
+	},
+});
